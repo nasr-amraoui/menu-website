@@ -91,8 +91,9 @@
         position: fixed; top: 0; left: 0; right: 0; z-index: 1030;
         background: #080808;
         border-bottom: 1px solid rgba(242, 169, 59, 0.25);
+        min-height: 56px;
       }
-      body { padding-top: 56px; }
+      body { padding-top: 56px; margin: 0; }
       .starup-navbar .nav-link {
         font-family: "Oswald", sans-serif; text-transform: uppercase;
         letter-spacing: 1.5px; font-size: 0.82rem; color: rgba(255, 255, 255, 0.78);
@@ -127,7 +128,7 @@
         background: rgba(9, 9, 9, 0.94); backdrop-filter: blur(10px);
         border-top: 1px solid rgba(255, 255, 255, 0.05);
         border-bottom: 1px solid rgba(242, 169, 59, 0.22);
-        padding: 0.7rem 0;
+        /* padding: 0.7rem 0; */
       }
       .nav-pills { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 0.5rem; }
       .nav-pills::-webkit-scrollbar { display: none; }
@@ -269,30 +270,28 @@
 
   <body>
     <!-- ===================== HEADER / NAVBAR ===================== -->
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark starup-navbar py-2">
-        <div class="container">
-          <a class="brand-logo me-3" href="#top" aria-label="Starup Coffee home">
-            <span class="brand-word">Starup<span class="sparkle" style="top: -0.2em; right: -0.5em">✦</span></span>
-            <span class="brand-sub">Coffee</span>
-          </a>
-          <button
-            class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav ms-auto align-items-lg-center">
-              <li class="nav-item"><a class="nav-link" href="#crepes">Crêpes</a></li>
-              <li class="nav-item"><a class="nav-link" href="#gauffres">Gauffres</a></li>
-              <li class="nav-item"><a class="nav-link" href="#pancakes">Pancakes</a></li>
-              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-            </ul>
-          </div>
+    <nav class="navbar navbar-expand-lg navbar-dark starup-navbar">
+      <div class="container">
+        <a class="brand-logo me-3" href="#top" aria-label="Starup Coffee home">
+          <span class="brand-word">Starup<span class="sparkle" style="top: -0.2em; right: -0.5em">✦</span></span>
+          <span class="brand-sub">Coffee</span>
+        </a>
+        <button
+          class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a class="nav-link" href="#crepes">Crêpes</a></li>
+            <li class="nav-item"><a class="nav-link" href="#gauffres">Gauffres</a></li>
+            <li class="nav-item"><a class="nav-link" href="#pancakes">Pancakes</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
 
     <main id="top">
       <!-- ===================== HERO ===================== -->
@@ -313,9 +312,9 @@
       </section>
 
       <!-- ===================== CATEGORY FILTER + SEARCH ===================== -->
-      <div class="filter-bar">
+      <div class="filter-bar p-2">
         <div class="container">
-          <div class="row g-2 align-items-center">
+          <div class="row align-items-center">
             <div class="col-lg-8">
               <ul class="nav nav-pills" id="categoryTabs" role="tablist">
                 <li class="nav-item" role="presentation">
