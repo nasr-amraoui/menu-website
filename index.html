@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Starup Coffee — New Menu. Crêpes, Gauffres & Pancakes. Projet perle de zaer GH6-Immeuble F M4 TAMESNA." />
+    <meta name="theme-color" content="#0b0b0b" />
+    <title>Starup Coffee — Menu (Crêpes · Gauffres · Pancakes)</title>
+
+    <!-- Bootstrap 5 (CDN) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow+Semi+Condensed:ital,wght@0,500;0,600;1,500;1,600&family=Baloo+2:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================================
+         STARUP COFFEE — brand theme (extracted from the printed menu)
+         black背景 / dark green ribbons / gold accents / white text
+         ============================================================ */
+      :root {
+        /* Brand palette */
+        --starup-black: #0a0a0a;
+        --starup-black-2: #121212;
+        --starup-green: #0f6b4c;
+        --starup-green-dark: #0a4c36;
+        --starup-gold: #f2a93b;
+        --starup-gold-soft: #e9b86a;
+        --starup-cream: #f6f1e7;
+        --starup-line: rgba(242, 169, 59, 0.45);
+
+        /* Bootstrap variable overrides */
+        --bs-primary: #0f6b4c;
+        --bs-primary-rgb: 15, 107, 76;
+        --bs-secondary: #f2a93b;
+        --bs-secondary-rgb: 242, 169, 59;
+        --bs-body-bg: #0a0a0a;
+        --bs-body-bg-rgb: 10, 10, 10;
+        --bs-body-color: #f3f3f3;
+        --bs-body-color-rgb: 243, 243, 243;
+        --bs-emphasis-color: #ffffff;
+        --bs-heading-color: #ffffff;
+        --bs-border-color: rgba(255, 255, 255, 0.12);
+        --bs-link-color: #f2a93b;
+        --bs-link-color-rgb: 242, 169, 59;
+        --bs-link-hover-color: #ffd08a;
+        --bs-body-font-family: "Barlow Semi Condensed", system-ui, sans-serif;
+        --bs-body-font-size: 1.0625rem;
+        --bs-border-radius: 0.9rem;
+        --bs-border-radius-lg: 1.25rem;
+      }
+
+      html { scroll-behavior: smooth; scroll-padding-top: 172px; }
+
+      body {
+        background-color: var(--starup-black);
+        background-image:
+          radial-gradient(1100px 620px at 50% -140px, rgba(15, 107, 76, 0.28), transparent 70%),
+          radial-gradient(700px 420px at 100% 15%, rgba(242, 169, 59, 0.08), transparent 65%),
+          repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.022) 0 2px, transparent 2px 7px);
+        background-attachment: fixed;
+        letter-spacing: 0.2px;
+      }
+
+      h1, h2, h3, h4, .display-font { font-family: "Oswald", "Barlow Semi Condensed", sans-serif; }
+
+      /* ---------- Logo ---------- */
+      .brand-logo { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; text-decoration: none; }
+      .brand-logo .brand-word {
+        font-family: "Baloo 2", cursive; font-weight: 800; color: #fff;
+        letter-spacing: -0.5px; position: relative; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+      }
+      .brand-logo .brand-sub {
+        font-family: "Oswald", sans-serif; font-weight: 600; color: #fff;
+        letter-spacing: 0.55em; text-indent: 0.55em; opacity: 0.92;
+      }
+      .brand-logo .sparkle { color: var(--starup-gold); font-size: 0.55em; position: absolute; }
+      .navbar .brand-logo .brand-word { font-size: 1.65rem; }
+      .navbar .brand-logo .brand-sub { font-size: 0.5rem; }
+
+      /* ---------- Navbar ---------- */
+      .starup-navbar {
+        background: rgba(8, 8, 8, 0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(242, 169, 59, 0.25);
+      }
+      .starup-navbar .nav-link {
+        font-family: "Oswald", sans-serif; text-transform: uppercase;
+        letter-spacing: 1.5px; font-size: 0.82rem; color: rgba(255, 255, 255, 0.78);
+      }
+      .starup-navbar .nav-link:hover, .starup-navbar .nav-link.active { color: var(--starup-gold); }
+      .navbar-toggler { border-color: rgba(242, 169, 59, 0.5); padding: 0.25rem 0.5rem; }
+      .navbar-toggler:focus { box-shadow: 0 0 0 0.2rem rgba(242, 169, 59, 0.25); }
+
+      /* ---------- Hero ---------- */
+      .hero { padding: 3.5rem 0 1.75rem; text-align: center; position: relative; }
+      .hero .brand-logo .brand-word { font-size: clamp(3rem, 12vw, 5.25rem); }
+      .hero .brand-logo .brand-sub { font-size: clamp(0.7rem, 2.6vw, 1rem); margin-top: 0.35rem; }
+      .hero .sparkle-1 { top: -0.35em; right: -0.35em; }
+      .hero .sparkle-2 { top: 0.05em; right: 0.25em; font-size: 0.32em; }
+      .hero-kicker {
+        font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: 0.42em;
+        color: var(--starup-gold); font-size: 0.78rem; margin-bottom: 0.4rem;
+      }
+      .hero-date {
+        font-family: "Barlow Semi Condensed", sans-serif; font-style: italic;
+        color: rgba(255, 255, 255, 0.65); letter-spacing: 1px;
+      }
+      .gold-divider {
+        width: min(420px, 80%); margin: 1.5rem auto 0; height: 1px;
+        background: repeating-linear-gradient(90deg, var(--starup-gold) 0 9px, transparent 9px 18px);
+        opacity: 0.8;
+      }
+
+      /* ---------- Sticky filter bar ---------- */
+      .filter-bar {
+        position: sticky; top: 62px; z-index: 1020;
+        background: rgba(9, 9, 9, 0.94); backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(242, 169, 59, 0.22);
+        padding: 0.7rem 0;
+      }
+      .nav-pills { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 0.5rem; }
+      .nav-pills::-webkit-scrollbar { display: none; }
+      .nav-pills .nav-link {
+        white-space: nowrap; font-family: "Oswald", sans-serif; text-transform: uppercase;
+        letter-spacing: 1.6px; font-size: 0.8rem; color: var(--starup-cream);
+        border: 1px solid rgba(242, 169, 59, 0.35); background: rgba(255, 255, 255, 0.03);
+        border-radius: 999px; padding: 0.45rem 1.1rem; transition: all 0.22s ease;
+      }
+      .nav-pills .nav-link:hover { border-color: var(--starup-gold); color: var(--starup-gold); transform: translateY(-1px); }
+      .nav-pills .nav-link.active {
+        background: linear-gradient(180deg, var(--starup-green) 0%, var(--starup-green-dark) 100%);
+        border-color: var(--starup-gold); color: #fff;
+        box-shadow: 0 6px 18px rgba(15, 107, 76, 0.45);
+      }
+      .search-wrap .form-control {
+        background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(242, 169, 59, 0.3);
+        color: #fff; border-radius: 999px; padding-left: 2.6rem; height: 42px;
+      }
+      .search-wrap .form-control::placeholder { color: rgba(255, 255, 255, 0.45); font-style: italic; }
+      .search-wrap .form-control:focus {
+        background: rgba(255, 255, 255, 0.07); border-color: var(--starup-gold);
+        box-shadow: 0 0 0 0.2rem rgba(242, 169, 59, 0.18); color: #fff;
+      }
+      .search-wrap { position: relative; }
+      .search-wrap .search-icon {
+        position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+        color: var(--starup-gold); pointer-events: none;
+      }
+
+      /* ---------- Section ribbon (green banner + dashed gold border) ---------- */
+      .ribbon {
+        position: relative; margin: 3rem auto 2rem; max-width: 900px;
+        background: linear-gradient(180deg, #127956 0%, var(--starup-green) 55%, var(--starup-green-dark) 100%);
+        padding: 0.75rem 2.5rem; text-align: center;
+        clip-path: polygon(0 0, 100% 0, calc(100% - 26px) 50%, 100% 100%, 0 100%, 26px 50%);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+      }
+      .ribbon::after {
+        content: ""; position: absolute; inset: 6px 34px;
+        border-top: 2px dashed var(--starup-line); border-bottom: 2px dashed var(--starup-line);
+        pointer-events: none;
+      }
+      .ribbon h2 {
+        margin: 0; font-weight: 700; text-transform: uppercase; letter-spacing: 3px;
+        color: var(--starup-gold); font-size: clamp(1.15rem, 4.2vw, 1.7rem);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+      }
+      .ribbon .ribbon-count {
+        display: block; font-family: "Barlow Semi Condensed", sans-serif; font-style: italic;
+        letter-spacing: 1px; font-size: 0.72rem; text-transform: none;
+        color: rgba(255, 255, 255, 0.75); margin-top: 2px;
+      }
+
+      /* ---------- Menu item card ---------- */
+      .menu-card {
+        --plate: 96px;
+        display: flex; align-items: center; gap: 1rem; height: 100%;
+        padding: 0.75rem 1rem 0.75rem 0.75rem;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015));
+        border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        cursor: default;
+      }
+      .menu-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(242, 169, 59, 0.55);
+        background: linear-gradient(145deg, rgba(15, 107, 76, 0.22), rgba(255, 255, 255, 0.02));
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.6);
+      }
+      .menu-card .plate {
+        flex: 0 0 var(--plate); width: var(--plate); height: var(--plate);
+        border-radius: 50%; overflow: hidden; position: relative;
+        background: #151515; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.07);
+      }
+      .menu-card .plate img {
+        width: 100%; height: 100%; object-fit: cover; display: block;
+        transition: transform 0.45s ease;
+      }
+      .menu-card:hover .plate img { transform: scale(1.09) rotate(-2deg); }
+      .menu-card .item-body { flex: 1 1 auto; min-width: 0; }
+      .menu-card .item-name {
+        font-family: "Oswald", sans-serif; font-weight: 600; text-transform: capitalize;
+        color: #fff; font-size: 1.02rem; line-height: 1.2; margin: 0 0 0.35rem;
+        letter-spacing: 0.6px;
+      }
+      .price-row { display: flex; align-items: flex-end; gap: 0.4rem; }
+      .leader { flex: 1 1 auto; border-bottom: 2px dotted rgba(242, 169, 59, 0.55); transform: translateY(-5px); }
+      .price {
+        font-family: "Barlow Semi Condensed", sans-serif; font-style: italic; font-weight: 600;
+        color: var(--starup-gold); white-space: nowrap; font-size: 0.98rem; letter-spacing: 0.5px;
+      }
+      .badge-tag {
+        font-family: "Oswald", sans-serif; font-size: 0.6rem; letter-spacing: 1.4px;
+        text-transform: uppercase; color: var(--starup-green-dark);
+        background: var(--starup-gold); border-radius: 999px; padding: 0.15rem 0.5rem;
+        margin-left: 0.35rem; vertical-align: middle;
+      }
+
+      .empty-state {
+        border: 1px dashed rgba(242, 169, 59, 0.4); border-radius: 18px;
+        background: rgba(255, 255, 255, 0.02); padding: 2.5rem 1rem; text-align: center;
+      }
+
+      /* ---------- Footer ---------- */
+      .starup-footer {
+        margin-top: 4rem;
+        background: linear-gradient(180deg, var(--starup-green) 0%, var(--starup-green-dark) 100%);
+        border-top: 3px dashed rgba(242, 169, 59, 0.5);
+        color: #fff;
+      }
+      .starup-footer a { color: #fff; text-decoration: none; }
+      .starup-footer a:hover { color: var(--starup-gold); }
+      .footer-title {
+        font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: 2.5px;
+        font-size: 0.8rem; color: var(--starup-gold); margin-bottom: 0.6rem;
+      }
+      .footer-bottom { background: #060606; font-size: 0.85rem; color: rgba(255, 255, 255, 0.55); }
+
+      .to-top {
+        position: fixed; right: 18px; bottom: 18px; z-index: 1030;
+        width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+        background: var(--starup-green); color: var(--starup-gold);
+        border: 1px solid var(--starup-gold); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.6);
+        opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease;
+        transform: translateY(10px);
+      }
+      .to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+      @media (max-width: 575.98px) {
+        .menu-card { --plate: 78px; padding: 0.6rem; gap: 0.75rem; }
+        .menu-card .item-name { font-size: 0.94rem; }
+        .filter-bar { top: 58px; }
+        html { scroll-padding-top: 200px; }
+        .ribbon { padding: 0.65rem 2rem; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ===================== HEADER / NAVBAR ===================== -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark starup-navbar sticky-top py-2">
+        <div class="container">
+          <a class="brand-logo me-3" href="#top" aria-label="Starup Coffee home">
+            <span class="brand-word">Starup<span class="sparkle" style="top: -0.2em; right: -0.5em">✦</span></span>
+            <span class="brand-sub">Coffee</span>
+          </a>
+          <button
+            class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+              <li class="nav-item"><a class="nav-link" href="#crepes">Crêpes</a></li>
+              <li class="nav-item"><a class="nav-link" href="#gauffres">Gauffres</a></li>
+              <li class="nav-item"><a class="nav-link" href="#pancakes">Pancakes</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <!-- ===================== HERO ===================== -->
+      <section class="hero">
+        <div class="container">
+          <p class="hero-kicker mb-2">New Menu</p>
+          <a class="brand-logo" href="#crepes" aria-label="Starup Coffee">
+            <span class="brand-word">
+              Starup
+              <span class="sparkle sparkle-1">✦</span>
+              <span class="sparkle sparkle-2">✦</span>
+            </span>
+            <span class="brand-sub">Coffee</span>
+          </a>
+          <p class="hero-date mt-3 mb-0">November 26, 2024</p>
+          <div class="gold-divider"></div>
+        </div>
+      </section>
+
+      <!-- ===================== CATEGORY FILTER + SEARCH ===================== -->
+      <div class="filter-bar">
+        <div class="container">
+          <div class="row g-2 align-items-center">
+            <div class="col-lg-8">
+              <ul class="nav nav-pills" id="categoryTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" data-category="all" type="button" role="tab" aria-selected="true">All</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" data-category="crepes" type="button" role="tab" aria-selected="false">Crêpes</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" data-category="gauffres" type="button" role="tab" aria-selected="false">Gauffres</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" data-category="pancakes" type="button" role="tab" aria-selected="false">Pancakes</button>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-4">
+              <div class="search-wrap">
+                <span class="search-icon" aria-hidden="true">🔎</span>
+                <label class="visually-hidden" for="searchInput">Search the menu</label>
+                <input id="searchInput" class="form-control" type="search" placeholder="Search a dessert…" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== MENU SECTIONS ===================== -->
+      <div class="container pb-4">
+        <section id="crepes" class="menu-section" data-category="crepes">
+          <div class="ribbon">
+            <h2>Crêpes<span class="ribbon-count" data-count-for="crepes"></span></h2>
+          </div>
+          <div class="row g-3 g-lg-4" data-grid-for="crepes"></div>
+        </section>
+
+        <section id="gauffres" class="menu-section" data-category="gauffres">
+          <div class="ribbon">
+            <h2>Gauffres<span class="ribbon-count" data-count-for="gauffres"></span></h2>
+          </div>
+          <div class="row g-3 g-lg-4" data-grid-for="gauffres"></div>
+        </section>
+
+        <section id="pancakes" class="menu-section" data-category="pancakes">
+          <div class="ribbon">
+            <h2>Pancakes<span class="ribbon-count" data-count-for="pancakes"></span></h2>
+          </div>
+          <div class="row g-3 g-lg-4" data-grid-for="pancakes"></div>
+        </section>
+
+        <div id="emptyState" class="empty-state d-none">
+          <p class="mb-1" style="font-family: 'Oswald', sans-serif; letter-spacing: 2px; color: var(--starup-gold)">
+            NO ITEM FOUND
+          </p>
+          <p class="mb-0 text-white-50 fst-italic">Try another name — Nutella, Oreo, Biscoff, Pistachio…</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer id="contact" class="starup-footer">
+      <div class="container py-5">
+        <div class="row g-4 align-items-start">
+          <div class="col-md-4">
+            <a class="brand-logo align-items-start" href="#top" aria-label="Starup Coffee">
+              <span class="brand-word" style="font-size: 2.1rem">Starup</span>
+              <span class="brand-sub" style="font-size: 0.6rem">Coffee</span>
+            </a>
+            <p class="mt-3 mb-0 fst-italic" style="color: rgba(255, 255, 255, 0.8)">
+              Crêpes · Gauffres · Pancakes
+            </p>
+          </div>
+
+          <div class="col-md-4">
+            <p class="footer-title">Location</p>
+            <address class="mb-0 d-flex gap-2">
+              <span aria-hidden="true">📍</span>
+              <a
+                href="https://maps.google.com/?q=Projet%20perle%20de%20zaer%20GH6%20Immeuble%20F%20M4%20TAMESNA"
+                target="_blank" rel="noopener"
+              >Projet perle de zaer GH6-Immeuble F M4 TAMESNA</a>
+            </address>
+          </div>
+
+          <div class="col-md-4">
+            <p class="footer-title">Follow us</p>
+            <p class="mb-2 d-flex gap-2">
+              <span aria-hidden="true">📸</span>
+              <a href="https://instagram.com/starupcoffe" target="_blank" rel="noopener">Starupcoffe</a>
+            </p>
+            <p class="mb-0" style="color: rgba(255, 255, 255, 0.75); font-style: italic">
+              Prices in DH · Dirham
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container py-3 text-center">
+          © <span id="year"></span> Starup Coffee — New Menu, November 26, 2024
+        </div>
+      </div>
+    </footer>
+
+    <button class="to-top" id="toTop" type="button" aria-label="Back to top">▲</button>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      /* ---------------- Menu data (transcribed from the printed menu) ---------------- */
+      const MENU = [
+        // CRÊPES
+        { c: "crepes", name: "Nutella Crêpe", price: "20.00 DH", img: "/images/crepe-nutella.jpg" },
+        { c: "crepes", name: "Nutella Banana", price: "25.00 DH", img: "/images/crepe-banana.jpg" },
+        { c: "crepes", name: "Cookies Crêpe", price: "28.00 DH", img: "/images/crepe-oreo.jpg" },
+        { c: "crepes", name: "Salted butter Caramel Crêpe", price: "26.00 DH", img: "/images/crepe-caramel.jpg" },
+        { c: "crepes", name: "Nutella Banana Sushi Crêpe", price: "32.00 DH", img: "/images/crepe-banana.jpg" },
+        { c: "crepes", name: "4 Seasons", price: "35.00 DH", img: "/images/crepe-pistachio.jpg" },
+        { c: "crepes", name: "Oreo Crêpe", price: "30.00 DH", img: "/images/crepe-oreo.jpg" },
+        { c: "crepes", name: "White Chocolate", price: "32.00 DH", img: "/images/crepe-banana.jpg" },
+        { c: "crepes", name: "Biscoff Crêpe", price: "33.00 DH", img: "/images/crepe-caramel.jpg" },
+        { c: "crepes", name: "Red Velvet", price: "36.00 DH", img: "/images/crepe-nutella.jpg" },
+        { c: "crepes", name: "Pistachio Crêpe", price: "36.00 DH", img: "/images/crepe-pistachio.jpg" },
+        // GAUFFRES
+        { c: "gauffres", name: "Lotus Gauffre", price: "33.00 DH", img: "/images/gauffre-biscoff.jpg" },
+        { c: "gauffres", name: "Caramel Biscoff", price: "33.00 DH", img: "/images/gauffre-biscoff.jpg" },
+        { c: "gauffres", name: "Nutella Banana", price: "26.00 DH", img: "/images/gauffre-banana.jpg" },
+        { c: "gauffres", name: "Nutella Gauffre", price: "21.00 DH", img: "/images/gauffre-banana.jpg" },
+        { c: "gauffres", name: "Chantilly Cream", price: "30.00 DH", img: "/images/gauffre-chantilly.jpg" },
+        { c: "gauffres", name: "Honey Gauffre", price: "23.00 DH", img: "/images/pancake-honey.jpg" },
+        // PANCAKES
+        { c: "pancakes", name: "Nutella Pancake", price: "21.00 DH", img: "/images/pancake-nutella.jpg" },
+        { c: "pancakes", name: "Chantilly Pancake Cream", price: "30.00 DH", img: "/images/gauffre-chantilly.jpg" },
+        { c: "pancakes", name: "Salted Butter Caramel", price: "24.00 DH", img: "/images/pancake-honey.jpg" },
+        { c: "pancakes", name: "Banana Nutella", price: "26.00 DH", img: "/images/pancake-nutella.jpg" },
+        { c: "pancakes", name: "Oreo Pancake", price: "31.00 DH", img: "/images/crepe-oreo.jpg" },
+        { c: "pancakes", name: "Honey Pancake", price: "23.00 DH", img: "/images/pancake-honey.jpg" },
+        { c: "pancakes", name: "Biscoff Pancake", price: "33.00 DH", img: "/images/gauffre-biscoff.jpg" },
+        { c: "pancakes", name: "Americano Cookies", price: "30.00 DH", img: "/images/pancake-nutella.jpg" },
+        { c: "pancakes", name: "Pancake Pistachio", price: "36.00 DH", img: "/images/crepe-pistachio.jpg" },
+      ];
+
+      /* ---------------- Render ---------------- */
+      const grids = {
+        crepes: document.querySelector('[data-grid-for="crepes"]'),
+        gauffres: document.querySelector('[data-grid-for="gauffres"]'),
+        pancakes: document.querySelector('[data-grid-for="pancakes"]'),
+      };
+
+      function cardMarkup(item) {
+        const col = document.createElement("div");
+        col.className = "col-12 col-md-6 col-xl-4 menu-col";
+        col.dataset.name = item.name.toLowerCase();
+        col.dataset.category = item.c;
+        col.innerHTML = `
+          <article class="menu-card">
+            <div class="plate">
+              <img src="${item.img}" alt="${item.name}" loading="lazy" width="120" height="120" />
+            </div>
+            <div class="item-body">
+              <h3 class="item-name">${item.name}</h3>
+              <div class="price-row">
+                <span class="leader"></span>
+                <span class="price">${item.price}</span>
+              </div>
+            </div>
+          </article>`;
+        return col;
+      }
+
+      MENU.forEach((item) => grids[item.c].appendChild(cardMarkup(item)));
+
+      /* ---------------- Filtering (category pills + search) ---------------- */
+      const pills = document.querySelectorAll("#categoryTabs .nav-link");
+      const searchInput = document.getElementById("searchInput");
+      const sections = document.querySelectorAll(".menu-section");
+      const emptyState = document.getElementById("emptyState");
+      let activeCategory = "all";
+
+      function applyFilters() {
+        const q = searchInput.value.trim().toLowerCase();
+        let total = 0;
+
+        sections.forEach((section) => {
+          const cat = section.dataset.category;
+          let visible = 0;
+
+          section.querySelectorAll(".menu-col").forEach((col) => {
+            const matchCat = activeCategory === "all" || activeCategory === cat;
+            const matchText = !q || col.dataset.name.includes(q);
+            const show = matchCat && matchText;
+            col.classList.toggle("d-none", !show);
+            if (show) visible++;
+          });
+
+          section.classList.toggle("d-none", visible === 0);
+          const counter = section.querySelector("[data-count-for]");
+          if (counter) counter.textContent = visible + (visible === 1 ? " item" : " items");
+          total += visible;
+        });
+
+        emptyState.classList.toggle("d-none", total !== 0);
+      }
+
+      pills.forEach((pill) => {
+        pill.addEventListener("click", () => {
+          pills.forEach((p) => {
+            p.classList.remove("active");
+            p.setAttribute("aria-selected", "false");
+          });
+          pill.classList.add("active");
+          pill.setAttribute("aria-selected", "true");
+          activeCategory = pill.dataset.category;
+          applyFilters();
+
+          if (activeCategory !== "all") {
+            const target = document.getElementById(activeCategory);
+            if (target) window.scrollTo({ top: target.offsetTop - 150, behavior: "smooth" });
+          }
+        });
+      });
+
+      searchInput.addEventListener("input", applyFilters);
+      applyFilters();
+
+      /* ---------------- Scroll spy on navbar + back to top ---------------- */
+      const navLinks = document.querySelectorAll(".starup-navbar .nav-link");
+      const toTop = document.getElementById("toTop");
+
+      window.addEventListener("scroll", () => {
+        const y = window.scrollY + 200;
+        let current = "";
+        sections.forEach((s) => {
+          if (!s.classList.contains("d-none") && s.offsetTop <= y) current = s.id;
+        });
+        navLinks.forEach((l) =>
+          l.classList.toggle("active", l.getAttribute("href") === "#" + current)
+        );
+        toTop.classList.toggle("show", window.scrollY > 500);
+      });
+
+      toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+      /* Close mobile nav after clicking a link */
+      document.querySelectorAll("#mainNav .nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          const collapse = bootstrap.Collapse.getInstance(document.getElementById("mainNav"));
+          if (collapse) collapse.hide();
+        });
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
