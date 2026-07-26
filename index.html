@@ -58,7 +58,7 @@
         --bs-border-radius-lg: 1.25rem;
       }
 
-      html { scroll-behavior: smooth; scroll-padding-top: 172px; }
+      html { scroll-behavior: smooth; scroll-padding-top: 140px; }
 
       body {
         background-color: var(--starup-black);
@@ -88,10 +88,12 @@
 
       /* ---------- Navbar ---------- */
       .starup-navbar {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1030;
         background: rgba(8, 8, 8, 0.92);
         backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(242, 169, 59, 0.25);
       }
+      body { padding-top: 56px; }
       .starup-navbar .nav-link {
         font-family: "Oswald", sans-serif; text-transform: uppercase;
         letter-spacing: 1.5px; font-size: 0.82rem; color: rgba(255, 255, 255, 0.78);
@@ -122,7 +124,7 @@
 
       /* ---------- Sticky filter bar ---------- */
       .filter-bar {
-        position: sticky; top: 62px; z-index: 1020;
+        position: sticky; top: 56px; z-index: 1020;
         background: rgba(9, 9, 9, 0.94); backdrop-filter: blur(10px);
         border-top: 1px solid rgba(255, 255, 255, 0.05);
         border-bottom: 1px solid rgba(242, 169, 59, 0.22);
@@ -259,8 +261,8 @@
       @media (max-width: 575.98px) {
         .menu-card { --plate: 78px; padding: 0.6rem; gap: 0.75rem; }
         .menu-card .item-name { font-size: 0.94rem; }
-        .filter-bar { top: 58px; }
-        html { scroll-padding-top: 200px; }
+        .filter-bar { top: 52px; }
+        html { scroll-padding-top: 170px; }
         .ribbon { padding: 0.65rem 2rem; }
       }
     </style>
@@ -269,7 +271,7 @@
   <body>
     <!-- ===================== HEADER / NAVBAR ===================== -->
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark starup-navbar sticky-top py-2">
+      <nav class="navbar navbar-expand-lg navbar-dark starup-navbar py-2">
         <div class="container">
           <a class="brand-logo me-3" href="#top" aria-label="Starup Coffee home">
             <span class="brand-word">Starup<span class="sparkle" style="top: -0.2em; right: -0.5em">✦</span></span>
@@ -535,7 +537,7 @@
 
           if (activeCategory !== "all") {
             const target = document.getElementById(activeCategory);
-            if (target) window.scrollTo({ top: target.offsetTop - 150, behavior: "smooth" });
+            if (target) window.scrollTo({ top: target.offsetTop - 120, behavior: "smooth" });
           }
         });
       });
@@ -548,7 +550,7 @@
       const toTop = document.getElementById("toTop");
 
       window.addEventListener("scroll", () => {
-        const y = window.scrollY + 200;
+        const y = window.scrollY + 140;
         let current = "";
         sections.forEach((s) => {
           if (!s.classList.contains("d-none") && s.offsetTop <= y) current = s.id;
