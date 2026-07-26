@@ -258,12 +258,52 @@
       }
       .to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
+      .menu-card { cursor: pointer; }
+      .menu-card .plate::after {
+        content: "+"; position: absolute; inset: 0; display: grid; place-items: center;
+        font-size: 2rem; font-weight: 700; color: #fff; background: rgba(0,0,0,0.4);
+        opacity: 0; transition: opacity 0.25s ease; border-radius: 50%;
+      }
+      .menu-card:hover .plate::after { opacity: 1; }
+      .menu-card.in-cart .plate::after { content: "✓"; opacity: 1; background: rgba(15,107,76,0.75); }
+
+      .cart-bar {
+        position: fixed; bottom: 0; left: 0; right: 0; z-index: 1040;
+        background: #0a0a0a; border-top: 2px solid var(--starup-gold);
+        padding: 0.65rem 1rem; display: none; align-items: center; gap: 0.75rem;
+        box-shadow: 0 -8px 30px rgba(0,0,0,0.7);
+      }
+      .cart-bar.show { display: flex; }
+      .cart-bar .cart-info { flex: 1; min-width: 0; }
+      .cart-bar .cart-count { font-family: "Oswald", sans-serif; font-size: 0.85rem; color: var(--starup-gold); text-transform: uppercase; letter-spacing: 1px; }
+      .cart-bar .cart-total { font-family: "Barlow Semi Condensed", sans-serif; font-style: italic; color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+      .cart-bar .btn-order {
+        font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: 1.5px;
+        background: linear-gradient(180deg, var(--starup-green) 0%, var(--starup-green-dark) 100%);
+        border: 1px solid var(--starup-gold); color: #fff; padding: 0.55rem 1.5rem;
+        border-radius: 999px; font-size: 0.85rem; white-space: nowrap;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .cart-bar .btn-order:hover { transform: scale(1.04); box-shadow: 0 6px 18px rgba(15,107,76,0.5); }
+      .cart-bar .btn-clear {
+        background: none; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5);
+        border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center;
+        font-size: 1.1rem; transition: border-color 0.2s, color 0.2s;
+      }
+      .cart-bar .btn-clear:hover { border-color: #e74c3c; color: #e74c3c; }
+
+      body { padding-bottom: 0; }
+      body.has-cart { padding-bottom: 64px; }
+
       @media (max-width: 575.98px) {
         .menu-card { --plate: 78px; padding: 0.6rem; gap: 0.75rem; }
         .menu-card .item-name { font-size: 0.94rem; }
         .filter-bar { top: 52px; }
         html { scroll-padding-top: 170px; }
         .ribbon { padding: 0.65rem 2rem; }
+        .cart-bar { padding: 0.5rem 0.75rem; flex-wrap: wrap; }
+        .cart-bar .btn-order { font-size: 0.78rem; padding: 0.45rem 1rem; }
+        body.has-cart { padding-bottom: 80px; }
       }
     </style>
   </head>
@@ -420,6 +460,15 @@
 
     <button class="to-top" id="toTop" type="button" aria-label="Back to top">▲</button>
 
+    <div class="cart-bar" id="cartBar">
+      <div class="cart-info">
+        <div class="cart-count" id="cartCount">0 item</div>
+        <div class="cart-total" id="cartTotal">Total: 0.00 DH</div>
+      </div>
+      <button class="btn-clear" id="cartClear" type="button" title="Clear cart">✕</button>
+      <button class="btn-order" id="cartOrder" type="button">Envoyez votre commande</button>
+    </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -488,7 +537,11 @@
         return col;
       }
 
-      MENU.forEach((item) => grids[item.c].appendChild(cardMarkup(item)));
+      MENU.forEach((item, i) => {
+        const col = cardMarkup(item);
+        col.dataset.menuIndex = i;
+        grids[item.c].appendChild(col);
+      });
 
       /* ---------------- Filtering (category pills + search) ---------------- */
       const pills = document.querySelectorAll("#categoryTabs .nav-link");
@@ -570,6 +623,87 @@
       });
 
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      /* ---------------- Cart System ---------------- */
+      const cart = [];
+      const cartBar = document.getElementById("cartBar");
+      const cartCount = document.getElementById("cartCount");
+      const cartTotal = document.getElementById("cartTotal");
+      const cartClear = document.getElementById("cartClear");
+      const cartOrder = document.getElementById("cartOrder");
+
+      function parsePrice(priceStr) {
+        return parseFloat(priceStr.replace(" DH", ""));
+      }
+
+      function formatPrice(num) {
+        return num.toFixed(2) + " DH";
+      }
+
+      function updateCartUI() {
+        const count = cart.length;
+        const total = cart.reduce((sum, item) => sum + parsePrice(item.price), 0);
+
+        if (count === 0) {
+          cartBar.classList.remove("show");
+          document.body.classList.remove("has-cart");
+          return;
+        }
+
+        cartBar.classList.add("show");
+        document.body.classList.add("has-cart");
+        cartCount.textContent = count + (count === 1 ? " item" : " items");
+        cartTotal.textContent = "Total: " + formatPrice(total);
+
+        document.querySelectorAll(".menu-col").forEach((col) => {
+          const idx = parseInt(col.dataset.menuIndex);
+          const inCart = !isNaN(idx) && cart.some((ci) => ci.name === MENU[idx].name);
+          col.querySelector(".menu-card").classList.toggle("in-cart", inCart);
+        });
+      }
+
+      function addToCart(item) {
+        cart.push({ ...item });
+        updateCartUI();
+      }
+
+      function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCartUI();
+      }
+
+      function clearCart() {
+        cart.length = 0;
+        updateCartUI();
+      }
+
+      function orderViaWhatsApp() {
+        if (cart.length === 0) return;
+        const lines = cart.map((item, i) => `${i + 1}. ${item.name} — ${item.price}`);
+        const total = cart.reduce((sum, item) => sum + parsePrice(item.price), 0);
+        const msg =
+          "*Starup Coffee — Nouvelle commande*%0A%0A" +
+          lines.join("%0A") +
+          "%0A%0A*Total: " + formatPrice(total) + "*%0A%0AMerci :)";
+        window.open("https://wa.me/212616705008?text=" + msg, "_blank");
+      }
+
+      /* Make menu cards clickable */
+      document.querySelectorAll(".menu-col").forEach((col) => {
+        const idx = parseInt(col.dataset.menuIndex);
+        const item = MENU[idx];
+        col.querySelector(".menu-card").addEventListener("click", (e) => {
+          const existing = cart.findIndex((ci) => ci.name === item.name);
+          if (existing !== -1) {
+            removeFromCart(existing);
+          } else {
+            addToCart(item);
+          }
+        });
+      });
+
+      cartClear.addEventListener("click", clearCart);
+      cartOrder.addEventListener("click", orderViaWhatsApp);
     </script>
   </body>
 </html>
